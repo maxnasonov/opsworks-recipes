@@ -1,6 +1,6 @@
 this is my layer <%= @mylayer %>
-<% if node[:layers] and node[:layers][@my_layer] and node[:layers][@my_layer][:applications] and not node[:layers][@my_layer][:applications].empty? -%>
-  <% node[:layers][my_layer][:applications].each_key do |app| -%>
+<% if node[:layers] and node[:layers][@mylayer] and node[:layers][@mylayer][:applications] and not node[:layers][@mylayer][:applications].empty? -%>
+  <% node[:layers][@mylayer][:applications].each_key do |app| -%>
 <%= app %>:
   image: <%= node[:layers][my_layer][:applications][app][:image] %>
     <% if node[:layers][my_layer][:applications][app][:command] -%>
