@@ -1,4 +1,4 @@
-<% if node[:layers] and node[:layers][my_layer] and node[:layers][my_layer][:applications] and not node[:layers][my_layer][:applications].empty? -%>
+<% if node[:layers] and node[:layers][@my_layer] and node[:layers][@my_layer][:applications] and not node[:layers][@my_layer][:applications].empty? -%>
   <% node[:layers][my_layer][:applications].each_key do |app| -%>
 <%= app %>:
   image: <%= node[:layers][my_layer][:applications][app][:image] %>
