@@ -8,12 +8,9 @@ package 'Install Docker' do
 end
 
 service 'Docker' do
-  case node[:platform]
-  when 'redhat', 'centos', 'amazon'
-    service_name 'docker'
-  when 'ubuntu', 'debian'
-    service_name 'docker.io'
-  end
+  service_name 'docker'
+  supports restart: true, reload: true
+  action %w(enable start)
 end
 
 package 'python-pip'
