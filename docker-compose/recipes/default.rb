@@ -1,6 +1,6 @@
 package 'Install Docker' do
   case node[:platform]
-  when 'redhat', 'centos'
+  when 'redhat', 'centos', 'amazon'
     package_name 'docker'
   when 'ubuntu', 'debian'
     package_name 'docker.io'
@@ -9,7 +9,7 @@ end
 
 service 'Docker' do
   case node[:platform]
-  when 'redhat', 'centos'
+  when 'redhat', 'centos', 'amazon'
     service_name 'docker'
   when 'ubuntu', 'debian'
     service_name 'docker.io'
