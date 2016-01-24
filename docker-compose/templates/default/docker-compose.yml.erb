@@ -1,4 +1,4 @@
-<% my_layer = node[:opsworks][:instance][:layers].first %>
+<% my_layer = node['opsworks']['instance']['layers'].first %>
 <% if node[:layers] and node[:layers][my_layer] and node[:layers][my_layer][:applications] and not node[:layers][my_layer][:applications].empty? -%>
   <% node[:layers][my_layer][:applications].each_key do |app| -%>
 <%= app %>:
