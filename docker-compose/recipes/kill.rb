@@ -1,4 +1,4 @@
-execute 'kill all running containers' do
+execute 'kill containers' do
     cwd '/docker-compose/'
-    command '/usr/bin/docker kill $(/usr/bin/docker ps -a -q)'
+    command 'docker-compose kill'
 end
