@@ -1,54 +1,53 @@
-this is my layer <%= @mylayer %>
-<% if node[:layers] and node[:layers][@mylayer] and node[:layers][@mylayer][:applications] and not node[:layers][@mylayer][:applications].empty? -%>
-  <% node[:layers][@mylayer][:applications].each_key do |app| -%>
+<% if node[:layers] and node[:layers][@my_layer] and node[:layers][@my_layer][:applications] and not node[:layers][@my_layer][:applications].empty? -%>
+  <% node[:layers][@my_layer][:applications].each_key do |app| -%>
 <%= app %>:
-  image: <%= node[:layers][my_layer][:applications][app][:image] %>
-    <% if node[:layers][my_layer][:applications][app][:command] -%>
-  command: <%= node[:layers][my_layer][:applications][app][:command] %>
+  image: <%= node[:layers][@my_layer][:applications][app][:image] %>
+    <% if node[:layers][@my_layer][:applications][app][:command] -%>
+  command: <%= node[:layers][@my_layer][:applications][app][:command] %>
     <% end %>
-    <% if node[:layers][my_layer][:applications][app][:working_dir] -%>
-  working_dir: <%= node[:layers][my_layer][:applications][app][:working_dir] %>
+    <% if node[:layers][@my_layer][:applications][app][:working_dir] -%>
+  working_dir: <%= node[:layers][@my_layer][:applications][app][:working_dir] %>
     <% end %>
-    <% if node[:layers][my_layer][:applications][app][:volumes] -%>
+    <% if node[:layers][@my_layer][:applications][app][:volumes] -%>
   volumes:
-     <% node[:layers][my_layer][:applications][app][:volumes].each do |volume| -%>
+     <% node[:layers][@my_layer][:applications][app][:volumes].each do |volume| -%>
     - <%= volume %>
       <% end %>
     <% end %>
-    <% if node[:layers][my_layer][:applications][app][:expose] -%>
+    <% if node[:layers][@my_layer][:applications][app][:expose] -%>
   expose:
-      <% node[:layers][my_layer][:applications][app][:expose].each do |expose| -%>
+      <% node[:layers][@my_layer][:applications][app][:expose].each do |expose| -%>
     - <%= expose %>
       <% end %>
     <% end %>
-    <% if node[:layers][my_layer][:applications][app][:environment_alias] -%>
+    <% if node[:layers][@my_layer][:applications][app][:environment_alias] -%>
   environment: &envs
-      <% node[:layers][my_layer][:applications][app][:environment_alias].each_pair do |env, value| -%>
+      <% node[:layers][@my_layer][:applications][app][:environment_alias].each_pair do |env, value| -%>
     <%= env %>: <%= value %>
       <% end %>
     <% end %>
-    <% if node[:layers][my_layer][:applications][app][:environment] -%>
+    <% if node[:layers][@my_layer][:applications][app][:environment] -%>
   environment:
-      <% node[:layers][my_layer][:applications][app][:environment].each_pair do |env, value| -%>
+      <% node[:layers][@my_layer][:applications][app][:environment].each_pair do |env, value| -%>
     <%= env %>: <%= value %>
       <% end %>
     <% end %>
 
-    <% if node[:layers][my_layer][:applications][app][:links] -%>
+    <% if node[:layers][@my_layer][:applications][app][:links] -%>
   links:
-      <% node[:layers][my_layer][:applications][app][:links].each do |link| -%>
+      <% node[:layers][@my_layer][:applications][app][:links].each do |link| -%>
     - <%= link %>
       <% end %>
     <% end %>
 
-    <% if node[:layers][my_layer][:applications][app][:ports] -%>
+    <% if node[:layers][@my_layer][:applications][app][:ports] -%>
   ports:
-      <% node[:layers][my_layer][:applications][app][:ports].each do |port| -%>
+      <% node[:layers][@my_layer][:applications][app][:ports].each do |port| -%>
     - <%= port %>
       <% end %>
     <% end %>
-    <% if node[:layers][my_layer][:applications][app][:privileged] -%>
-  privileged: <%= node[:layers][my_layer][:applications][app][:privileged] %>
+    <% if node[:layers][@my_layer][:applications][app][:privileged] -%>
+  privileged: <%= node[:layers][@my_layer][:applications][app][:privileged] %>
     <% end %>
   <% end %>
 <% end %>
