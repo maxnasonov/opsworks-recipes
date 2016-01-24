@@ -1,4 +1,5 @@
-<% my_layer = node['opsworks']['instance']['layers'].first %>
+<% my_layer_object = search("aws_opsworks_layer").first %>
+<% my_layer = my_layer_object['name'] %>
 <% if node[:layers] and node[:layers][my_layer] and node[:layers][my_layer][:applications] and not node[:layers][my_layer][:applications].empty? -%>
   <% node[:layers][my_layer][:applications].each_key do |app| -%>
 <%= app %>:
