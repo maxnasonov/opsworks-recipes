@@ -13,7 +13,7 @@ template '/docker-compose/docker-compose.yml' do
   group 'root'
   mode 00644
   variables ({
-    :my_layer => my_layer
+    :my_layer => my_layer['name']
   })
 end
 
