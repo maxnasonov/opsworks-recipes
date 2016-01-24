@@ -10,7 +10,7 @@ template '/docker-compose/docker-compose.yml' do
   group 'root'
   mode 00644
   variables ({
-    :my_layer = search("aws_opsworks_layer").first
+    :my_layer => search("aws_opsworks_layer").first
   })
 end
 
