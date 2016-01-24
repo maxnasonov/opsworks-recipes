@@ -9,6 +9,9 @@ template '/docker-compose/docker-compose.yml' do
   owner 'root'
   group 'root'
   mode 00644
+  variables ({
+    :my_layer = search("aws_opsworks_layer").first
+  })
 end
 
 include_recipe 'docker-compose::pull'
