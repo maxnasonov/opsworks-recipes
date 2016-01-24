@@ -11,7 +11,7 @@ template '/docker-compose/docker-compose.yml' do
   mode 00644
 end
 
-include_recipe 'docker-compose::docker-compose-pull'
-include_recipe 'docker-compose::docker-compose-stop'
-include_recipe 'docker-compose::docker-compose-rm'
-include_recipe 'docker-compose::docker-compose-up'
+include_recipe 'docker-compose::pull'
+include_recipe 'docker-compose::stop'
+include_recipe 'docker-compose::rm'
+include_recipe 'docker-compose::up'
