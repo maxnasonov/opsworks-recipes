@@ -4,13 +4,16 @@ directory '/docker-compose' do
   mode  '00755'
 end
 
+my_layer = search("aws_opsworks_layer").first
+Chef::Log.info("********** The layer's name is '#{my_layer['name']}' **********")
+
 template '/docker-compose/docker-compose.yml' do
   source 'docker-compose.yml.erb'
   owner 'root'
   group 'root'
   mode 00644
   variables ({
-    :my_layer => search("aws_opsworks_layer").first
+    :my_layer => my_layer
   })
 end
 
