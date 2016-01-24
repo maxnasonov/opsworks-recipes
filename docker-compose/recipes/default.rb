@@ -21,4 +21,3 @@ package 'python-pip'
 python_pip 'docker-compose'
 
 include_recipe 'docker-compose::cron'
-include_recipe 'docker-compose::login'
