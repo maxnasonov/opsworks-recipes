@@ -1,0 +1,19 @@
+{
+  "layers": {
+    "testubuntu": {
+      "applications": {
+        "web": {
+          "image": "nginx",
+          "ports": [ "80:80", "443:443" ],
+          "links": [ "postfix", "redis" ]
+        },
+        "postfix": {
+          "image": "tozd/postfix"
+        },
+        "redis": {
+          "image": "redis"
+        }
+      }
+    }
+  }
+}
