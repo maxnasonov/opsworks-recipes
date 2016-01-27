@@ -1,6 +1,6 @@
 {
   "layers": {
-    "testubuntu": {
+    "layer1": {
       "applications": {
         "web": {
           "image": "nginx",
