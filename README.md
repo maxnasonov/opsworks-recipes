@@ -6,7 +6,7 @@ See the wiki page for more information.
 
 ### What is this repository for? ###
 
-* It contains Chef Recipes you should be used on Amazon Opsworks.
+* It contains Chef Recipes you should use on Amazon Opsworks.
 * Beta version
 
 ### How do I get set up? ###
