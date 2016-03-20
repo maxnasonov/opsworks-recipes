@@ -3,7 +3,7 @@
     "name": "<%= node[:hostname] %>",
     "address": "<%= node[:ipaddress] %>",
     "subscriptions": [
-      <%= node[:sensu][:subscriptions].each do |subscription| -%>
+      <% node[:sensu][:subscriptions].each do |subscription| -%>
       "<%= subscription %>",
       <% end %>
     ]
