@@ -4,7 +4,13 @@ directory '/etc/sensu' do
   mode  '00755'
 end
 
-template '/etc/sensu/client.json' do
+directory '/etc/sensu/conf.d' do
+  owner 'root'
+  group 'root'
+  mode  '00755'
+end
+
+template '/etc/sensu/conf.d/client.json' do
   source 'client.json.erb'
   owner 'root'
   group 'root'
