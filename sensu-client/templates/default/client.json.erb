@@ -4,7 +4,7 @@
     "address": "<%= node[:ipaddress] %>",
     "subscriptions": [
       <% node[:sensu][:subscriptions].each do |subscription| -%>
-      "<%= subscription %>",
+      "<%= subscription %>"
       <% end %>
     ]
   }
