@@ -20,7 +20,7 @@
         "sensu-server": {
           "command": "sensu-server -d /etc/sensu/conf.d",
           "image": "thiagonache/sensu",
-          "volumes": ["/etc/sensu/conf.d/amqp.json:/etc/sensu/conf.d/amqp.json", "/etc/sensu/conf.d/redis.json:/etc/sensu/conf.d/redis.json", "/etc/sensu/conf.d/amqp.json:/etc/sensu/conf.d/api.json"]
+          "volumes": ["/etc/sensu/conf.d/amqp.json:/etc/sensu/conf.d/amqp.json", "/etc/sensu/conf.d/redis.json:/etc/sensu/conf.d/redis.json"]
         },
         "rabbitmq": {
           "ports": ["5672:5672"],
