@@ -13,12 +13,12 @@
           "image": "redis"
         },
         "sensu-client": {
-          "command": "sensu-client -c /etc/sensu/config.json -d /etc/sensu/conf.d",
+          "command": "sensu-client -d /etc/sensu/conf.d",
           "image": "thiagonache/sensu",
           "volumes": ["/etc/sensu/conf.d/amqp.json:/etc/sensu/conf.d/amqp.json", "/etc/sensu/conf.d/redis.json:/etc/sensu/conf.d/redis.json", "/etc/sensu/conf.d/client.json:/etc/sensu/conf.d/client.json"]
         },
         "sensu-server": {
-          "command": "sensu-server -c /etc/sensu/config.json -d /etc/sensu/conf.d",
+          "command": "sensu-server -d /etc/sensu/conf.d",
           "image": "thiagonache/sensu",
           "volumes": ["/etc/sensu/conf.d/amqp.json:/etc/sensu/conf.d/amqp.json", "/etc/sensu/conf.d/redis.json:/etc/sensu/conf.d/redis.json", "/etc/sensu/conf.d/amqp.json:/etc/sensu/conf.d/api.json"]
         },
