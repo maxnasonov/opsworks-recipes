@@ -5,6 +5,9 @@
     <% if node[:layers][@my_layer][:applications][app][:command] -%>
   command: <%= node[:layers][@my_layer][:applications][app][:command] %>
     <% end %>
+    <% if node[:layers][@my_layer][:applications][app][:log_driver] -%>
+  log_driver: <%= node[:layers][@my_layer][:applications][app][:log_driver] %>
+    <% end %>
     <% if node[:layers][@my_layer][:applications][app][:working_dir] -%>
   working_dir: <%= node[:layers][@my_layer][:applications][app][:working_dir] %>
     <% end %>
@@ -57,6 +60,9 @@
   image: <%= node[:applications][app][:image] %>
   <% if node[:applications][app][:command] -%>
   command: <%= node[:applications][app][:command] %>
+  <% end %>
+  <% if node[:applications][app][:log_driver] -%>
+  log_driver: <%= node[:applications][app][:log_driver] %>
   <% end %>
   <% if node[:applications][app][:working_dir] -%>
   working_dir: <%= node[:applications][app][:working_dir] %>
