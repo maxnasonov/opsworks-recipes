@@ -68,7 +68,7 @@
   log_driver: <%= node[:applications][app][:log_driver] %>
   <% end %>
   <% if node[:applications][app][:network_mode] -%>
-  :network_mode <%= node[:applications][app][:network_mode] %>
+  network_mode: <%= node[:applications][app][:network_mode] %>
   <% end %>
   <% if node[:applications][app][:working_dir] -%>
   working_dir: <%= node[:applications][app][:working_dir] %>
