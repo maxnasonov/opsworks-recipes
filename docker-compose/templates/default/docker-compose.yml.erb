@@ -8,8 +8,8 @@
     <% if node[:layers][@my_layer][:applications][app][:log_driver] -%>
   log_driver: <%= node[:layers][@my_layer][:applications][app][:log_driver] %>
     <% end %>
-    <% if node[:layers][@my_layer][:applications][app][:network_mode] -%>
-  network_mode: <%= node[:layers][@my_layer][:applications][app][:network_mode] %>
+    <% if node[:layers][@my_layer][:applications][app][:net] -%>
+  net: <%= node[:layers][@my_layer][:applications][app][:net] %>
     <% end %>
     <% if node[:layers][@my_layer][:applications][app][:working_dir] -%>
   working_dir: <%= node[:layers][@my_layer][:applications][app][:working_dir] %>
@@ -67,8 +67,8 @@
   <% if node[:applications][app][:log_driver] -%>
   log_driver: <%= node[:applications][app][:log_driver] %>
   <% end %>
-  <% if node[:applications][app][:network_mode] -%>
-  network_mode: <%= node[:applications][app][:network_mode] %>
+  <% if node[:applications][app][:net] -%>
+  net: <%= node[:applications][app][:net] %>
   <% end %>
   <% if node[:applications][app][:working_dir] -%>
   working_dir: <%= node[:applications][app][:working_dir] %>
