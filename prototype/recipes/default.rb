@@ -11,13 +11,15 @@ end
 require 'aws-sdk'
 require 's3encrypt'
 
-directory "#{Chef::Config['file_cache_path']}/mellon"
+directory "/opt/mellon" do
+  recursive true
+end
 
 node['prototype']['mellon_files'].each do |mellon_file|
   if mellon_file == "FederationMetadata.xml"
-    S3encrypt.getfile("#{Chef::Config['file_cache_path']}/mellon/#{mellon_file}", mellon_file, node['prototype']['s3_bucket'], node['prototype']['encryption_context'])
+    S3encrypt.getfile("/opt/#{mellon_file}", mellon_file, node['prototype']['s3_bucket'], node['prototype']['encryption_context'])
   else
-    S3encrypt.getfile("#{Chef::Config['file_cache_path']}/mellon/adfs.#{mellon_file.split('.')[-1]}", mellon_file, node['prototype']['s3_bucket'], node['prototype']['encryption_context'])
+    S3encrypt.getfile("/opt/mellon/adfs.#{mellon_file.split('.')[-1]}", mellon_file, node['prototype']['s3_bucket'], node['prototype']['encryption_context'])
   end
 end
 
