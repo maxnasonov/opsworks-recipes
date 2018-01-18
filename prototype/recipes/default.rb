@@ -27,6 +27,9 @@ ruby_block 'download-mellon-files' do
   end
 end
 
+include_recipe 'python'
+
+# Work around pip install's snimissingwarning
 python_pip 'pip' do
   version '8.1.2'
   action :upgrade
