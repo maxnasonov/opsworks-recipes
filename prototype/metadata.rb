@@ -8,4 +8,5 @@ version          '0.1.0'
 
 {
 "aws"              => "3.0.0",
+"logstash"         => "1.0.0",
 }.each {|key, value| depends "#{key}", "~> #{value}" }

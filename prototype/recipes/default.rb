@@ -27,3 +27,47 @@ ruby_block 'download-mellon-files' do
   end
 end
 
+name = 'server'
+
+# these should all default correctly.  listing out for example.
+logstash_instance name do
+  action            :create
+end
+
+# services are hard! Let's go LWRP'ing.   FIREBALL! FIREBALL! FIREBALL!
+logstash_service name do
+  action      [:enable]
+end
+
+#my_templates  = node['logstash']['instance_default']['config_templates']
+
+#if my_templates.empty?
+#  my_templates = {
+#    'input_syslog' => 'config/input_syslog.conf.erb',
+#    'output_stdout' => 'config/output_stdout.conf.erb',
+#    'output_elasticsearch' => 'config/output_elasticsearch.conf.erb'
+#  }
+#end
+
+logstash_config name do
+#  templates my_templates
+  action [:create]
+  variables(
+    elasticsearch_embedded: false,
+    access_key_id: aws_creds["access_key_id"],
+    secret_access_key: aws_creds["secret_access_key"]
+  )
+end
+
+logstash_plugins 'contrib' do
+  instance name
+  action [:create]
+end
+
+logstash_pattern name do
+  action [:create]
+end
+
+logstash_service name do
+  action [:start]
+end
