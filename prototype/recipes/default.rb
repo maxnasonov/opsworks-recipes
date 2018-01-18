@@ -27,7 +27,12 @@ ruby_block 'download-mellon-files' do
   end
 end
 
+python_pip 'pip' do
+  version '8.1.2'
+  action :upgrade
+end
 
+node.default['beaver']['version'] = '36.2.1'
 include_recipe "beaver"
 
 # Follow all logs in /var/log except some useless logs, and chef ones which are handled separately (see below).
