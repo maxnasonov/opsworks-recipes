@@ -27,3 +27,22 @@ ruby_block 'download-mellon-files' do
   end
 end
 
+
+include_recipe "beaver"
+
+# Follow all logs in /var/log except some useless logs, and chef ones which are handled separately (see below).
+beaver_tail "system_logs" do
+  path "/var/log/*log"
+  type "syslog"
+  format "json"
+  tags [
+    "syslog",
+    "prototype",
+    node['prototype']['name'],
+  ],
+  exclude "(dpkg|alternatives|lastlog|chef|beaver)"
+  add_field [
+    "instanceID", `ec2metadata --instance-id`,
+    "rm_type", "prototype"
+  ]
+end
