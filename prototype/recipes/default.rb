@@ -35,7 +35,17 @@ python_pip 'pip' do
   action :upgrade
 end
 
+config = node['beaver']['configuration']
+config.store('transport', 'sqs')
+config.store('sqs_aws_queue', 'logstash-input')
+config.store('queue_timeout', '180')
+config.store('logstash_version', '1')
+config.store('sincedb_path', '/etc/beaver/since.db')
+node.default['beaver']['configuration'] = config
+node.default['beaver']['files'] = []
 node.default['beaver']['version'] = '36.2.1'
+node.default['beaver']['user'] = 'root'
+node.default['beaver']['group'] = 'root'
 include_recipe "beaver"
 
 # Follow all logs in /var/log except some useless logs, and chef ones which are handled separately (see below).
@@ -50,7 +60,7 @@ beaver_tail "system_logs" do
   ]
   exclude "(dpkg|alternatives|lastlog|chef|beaver)"
   add_field [
-    "instanceID", `ec2metadata --instance-id`,
+    "instanceID", `ec2metadata --instance-id`.chomp,
     "rm_type", "prototype"
   ]
 end
