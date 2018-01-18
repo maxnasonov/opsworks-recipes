@@ -38,8 +38,8 @@ beaver_tail "system_logs" do
   tags [
     "syslog",
     "prototype",
-    node['prototype']['name'],
-  ],
+    node['prototype']['name']
+  ]
   exclude "(dpkg|alternatives|lastlog|chef|beaver)"
   add_field [
     "instanceID", `ec2metadata --instance-id`,
