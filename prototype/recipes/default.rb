@@ -62,6 +62,6 @@ beaver_tail "system_logs" do
   add_field [
     "instanceID", `ec2metadata --instance-id`.chomp,
     "rm_type", "prototype",
-    "prototype_name": node['prototype']['name']
+    "prototype_name", node['prototype']['name']
   ]
 end
