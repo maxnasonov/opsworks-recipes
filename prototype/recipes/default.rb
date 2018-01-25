@@ -1,4 +1,6 @@
 ENV['AWS_REGION'] = node['prototype']['aws_region']
+node.set_unless[:prototype][:instance_id] = `ec2metadata --instance-id`.chomp
+node.save
 
 %w{aws-sdk s3encrypt}.each do |g|
   chef_gem g do
@@ -48,6 +50,26 @@ node.default['beaver']['user'] = 'root'
 node.default['beaver']['group'] = 'root'
 include_recipe "beaver"
 
+if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 12.04
+  chef_gem 'chef-rewind'
+  require 'chef/rewind'
+
+  rewind :template => '/etc/init/beaver.conf' do
+    cookbook_name 'prototype'
+    owner 'root'
+    group 'root'
+    variables node['beaver']
+    notifies :restart, 'service[beaver]'
+    path '/lib/systemd/system/beaver.service'
+    source 'beaver.service.erb'
+    mode '0644'
+  end
+
+  rewind :service => 'beaver' do
+    provider Chef::Provider::Service::Systemd
+  end
+end
+
 # Follow all logs in /var/log except some useless logs, and chef ones which are handled separately (see below).
 beaver_tail "system_logs" do
   path "/var/log/*log"
@@ -59,9 +81,9 @@ beaver_tail "system_logs" do
     node['prototype']['name']
   ]
   exclude "(dpkg|alternatives|lastlog|chef|beaver)"
-  add_field [
-    "instanceID", `ec2metadata --instance-id`.chomp,
-    "rm_type", "prototype",
-    "prototype_name", node['prototype']['name']
+  add_field_env [
+    "instanceID", "INSTANCE_ID",
+    "rm_type", "RM_TYPE",
+    "prototype_name", "PROTOTYPE_NAME"
   ]
 end
