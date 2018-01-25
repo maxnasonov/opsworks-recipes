@@ -56,17 +56,6 @@ if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 12.04
 
   rewind :template => '/etc/init/beaver.conf' do
     cookbook_name 'prototype'
-    owner 'root'
-    group 'root'
-    variables node['beaver']
-    notifies :restart, 'service[beaver]'
-    path '/lib/systemd/system/beaver.service'
-    source 'beaver.service.erb'
-    mode '0644'
-  end
-
-  rewind :service => 'beaver' do
-    provider Chef::Provider::Service::Systemd
   end
 end
 
