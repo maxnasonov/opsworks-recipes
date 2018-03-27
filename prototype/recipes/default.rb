@@ -119,7 +119,6 @@ end
 template "/etc/default/td-agent" do
   source 'td_agent/default'
   notifies :restart, "service[td-agent]", :delayed
-
 end
 
 template "/lib/systemd/system/td-agent.service" do
