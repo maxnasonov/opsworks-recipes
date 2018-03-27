@@ -89,7 +89,7 @@ node.default[:td_agent][:plugins] = [
 ]
 include_recipe 'td-agent'
 
-base_td_agent_tail "system_logs" do
+prototype_td_agent_tail "system_logs" do
   options Hash({
     :path => '/var/log/*log',
     :tag => 'syslog',

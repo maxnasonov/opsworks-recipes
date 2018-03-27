@@ -1,0 +1,20 @@
+<source>
+  @type tail
+  <%- @options.each do |key, value| -%>
+  <%= key %> <%= value %>
+  <%- end -%> 
+
+  <parse>
+    <%- @parse.each do |type, options| -%>
+    @type <%= type %>
+    <%- if options.any? -%>
+    <%- options.each do |key, value| -%>
+    <%= key %> <%= value %>
+    <%- end -%> 
+    <%- end -%> 
+    <%- end -%> 
+  </parse>
+
+  path_key path
+  pos_file /var/log/td-agent/<%= @name %>.pos
+</source>
