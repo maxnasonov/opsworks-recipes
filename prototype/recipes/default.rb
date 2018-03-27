@@ -80,74 +80,68 @@ end
 
 ## Treasure Data Agent (Fluentd)
 
-if false
+node.default[:td_agent][:version] = '3.1.1'
+node.default[:td_agent][:in_http][:enable_api] = false
+node.default[:td_agent][:default_config] = false
+node.default[:td_agent][:includes] = true
+node.default[:td_agent][:plugins] = [
+  's3'
+]
+include_recipe 'td-agent'
 
-  node.default[:td_agent][:version] = '3.1.1'
-  node.default[:td_agent][:in_http][:enable_api] = false
-  node.default[:td_agent][:default_config] = false
-  node.default[:td_agent][:includes] = true
-  node.default[:td_agent][:plugins] = [
-    's3'
-  ]
-  include_recipe 'td-agent'
+base_td_agent_tail "system_logs" do
+  options Hash({
+    :path => '/var/log/*log',
+    :tag => 'syslog',
+    :exclude_path => [
+      "/var/log/dpkg*",
+      "/var/log/alternatives*",
+      "/var/log/lastlog*",
+      "/var/log/chef*",
+      "/var/log/beaver*",
+      "/var/log/logstash*",
+      "/var/log/td-agent*"
+    ]
+  })
+  notifies :reload, "service[td-agent]", :delayed
+end
 
-  base_td_agent_tail "system_logs" do
-    options Hash({
-      :path => '/var/log/*log',
-      :tag => 'syslog',
-      :exclude_path => [
-        "/var/log/dpkg*",
-        "/var/log/alternatives*",
-        "/var/log/lastlog*",
-        "/var/log/chef*",
-        "/var/log/beaver*",
-        "/var/log/logstash*",
-        "/var/log/td-agent*"
-      ]
-    })
+%w[
+  50-filter_main.conf
+  90-output_s3.conf
+].each do |conf_file|
+  template "/etc/td-agent/conf.d/#{conf_file}" do
+    source "td_agent/#{conf_file}.erb"
     notifies :reload, "service[td-agent]", :delayed
   end
+end
 
-  %w[
-    50-filter_main.conf
-    90-output_s3.conf
-  ].each do |conf_file|
-    template "/etc/td-agent/conf.d/#{conf_file}" do
-      source "td_agent/#{conf_file}.erb"
-      notifies :reload, "service[td-agent]", :delayed
-    end
-  end
-
-  template "/etc/default/td-agent" do
-    source 'td_agent/default'
-    notifies :restart, "service[td-agent]", :delayed
-
-  end
-
-  template "/lib/systemd/system/td-agent.service" do
-    source 'td_agent/td-agent.service.erb'
-    owner 'root'
-    group 'root'
-    mode '0644'
-    notifies :run, "execute[systemctl daemon-reload]", :immediately
-  end
-
-  execute 'systemctl daemon-reload' do
-    command 'systemctl daemon-reload'
-    action :nothing
-    notifies :restart, "service[td-agent]", :delayed
-  end
-
-  chef_gem 'chef-rewind'
-  require 'chef/rewind'
-
-  rewind :service => 'td-agent' do
-    #provider Chef::Provider::Service::Systemd
-    restart_command nil
-  end
+template "/etc/default/td-agent" do
+  source 'td_agent/default'
+  notifies :restart, "service[td-agent]", :delayed
 
 end
 
+template "/lib/systemd/system/td-agent.service" do
+  source 'td_agent/td-agent.service.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
+  notifies :run, "execute[systemctl daemon-reload]", :immediately
+end
 
+execute 'systemctl daemon-reload' do
+  command 'systemctl daemon-reload'
+  action :nothing
+  notifies :restart, "service[td-agent]", :delayed
+end
+
+chef_gem 'chef-rewind'
+require 'chef/rewind'
+
+rewind :service => 'td-agent' do
+  #provider Chef::Provider::Service::Systemd
+  restart_command nil
+end
 
 ##
