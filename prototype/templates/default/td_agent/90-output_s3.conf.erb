@@ -10,7 +10,7 @@
   auto_create_bucket false
   store_as gzip
   path logs/
-  s3_object_key_format "%{path}%{time_slice}.<%= node['ec2']['instance_id'] %>_%{index}.%{file_extension}"
+  s3_object_key_format "%{path}%{time_slice}.<%= node['prototype']['instance_id'] %>_%{index}.%{file_extension}"
 
   time_slice_format %Y%m%d%H%M
 

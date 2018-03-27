@@ -92,7 +92,7 @@ include_recipe 'td-agent'
 prototype_td_agent_tail "system_logs" do
   options Hash({
     :path => '/var/log/*log',
-    :tag => 'syslog',
+    :tag => "syslog.#{node['prototype']['name']}.prototype",
     :exclude_path => [
       "/var/log/dpkg*",
       "/var/log/alternatives*",

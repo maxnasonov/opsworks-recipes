@@ -3,12 +3,10 @@
   enable_ruby
   <record>
     type ${tag_parts.last}
-    tags ${tag.gsub('.', ',')},<%= node['riskmatch']['environment'] %>,<%= node['riskmatch']['module']['name'] %>,<%= node['riskmatch']['module']['type'] %>,<%= node['riskmatch']['module']['service'] %>
-    instanceID <%= node['ec2']['instance_id'] %>
-    rm_env <%= node[:riskmatch][:environment] %>
-    rm_type <%= node[:riskmatch][:module][:type] %>
-    rm_id <%= node[:riskmatch][:module][:name] %>
-    rm_service <%= node[:riskmatch][:module][:service] %>
+    tags ${tag.gsub('.', ',')}
+    instanceID <%= node['prototype']['instance_id'] %>
+    rm_type prototype
+    prototype_name <%= node['prototype']['name'] %>
     @timestamp ${time.strftime('%Y-%m-%dT%H:%M:%S.%LZ')}
   </record>
 </filter>
