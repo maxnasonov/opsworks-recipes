@@ -80,7 +80,7 @@ end
 
 ## Treasure Data Agent (Fluentd)
 
-if default
+if false
 
   node.default[:td_agent][:version] = '3.1.1'
   node.default[:td_agent][:in_http][:enable_api] = false
