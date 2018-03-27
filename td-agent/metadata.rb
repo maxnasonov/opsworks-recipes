@@ -16,4 +16,3 @@ source_url       "https://github.com/treasure-data/chef-td-agent" if respond_to?
 end
 
 depends 'apt'
-depends 'yum'
