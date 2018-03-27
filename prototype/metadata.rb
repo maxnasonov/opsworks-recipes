@@ -9,4 +9,5 @@ version          '0.1.0'
 {
 "aws"              => "3.0.0",
 "beaver"           => "1.5.0",
+"td-agent"         => "3.0.2",
 }.each {|key, value| depends "#{key}", "~> #{value}" }

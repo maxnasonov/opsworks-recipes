@@ -1,0 +1,12 @@
+<filter *>
+  @type record_transformer
+  enable_ruby
+  <record>
+    type ${tag_parts.last}
+    tags ${tag.gsub('.', ',')}
+    instanceID <%= node['prototype']['instance_id'] %>
+    rm_type prototype
+    prototype_name <%= node['prototype']['name'] %>
+    @timestamp ${time.strftime('%Y-%m-%dT%H:%M:%S.%LZ')}
+  </record>
+</filter>

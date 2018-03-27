@@ -1,0 +1,26 @@
+<match **>
+  @type s3
+
+  <format>
+    @type json
+  </format>
+
+  s3_bucket rm-instance-logs-prod-us-east-1
+  s3_region us-east-1
+  auto_create_bucket false
+  store_as gzip
+  path logs/
+  s3_object_key_format "%{path}%{time_slice}.<%= node['prototype']['instance_id'] %>_%{index}.%{file_extension}"
+
+  time_slice_format %Y%m%d%H%M
+
+  <buffer>
+    @type file
+    path /var/log/td-agent/s3
+    #timekey_wait 10m
+    chunk_limit_size 1m
+    flush_mode interval
+    #flush_at_shutdown true
+  </buffer>
+
+</match>
