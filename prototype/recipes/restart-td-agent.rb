@@ -1,6 +1,5 @@
 include_recipe 'prototype::default'
 
-ruby_block 'Trigger td-agent restart' do
-  block {}
-  notifies :restart, 'service[td-agent]', :immediately    
+execute 'trigger td-agent restart' do
+  command "/etc/init.d/td-agent restart"
 end
