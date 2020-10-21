@@ -40,10 +40,12 @@ end
 #  action :upgrade
 #end
 #
-python_pip 'zipp'
+python_pip 'zipp' do
+  version '1.1.1'
+end
 
 python_pip 'pyrsistent' do
-  version '0.16.0'
+  version '0.16.1'
 end
 
 python_pip 'docker'
