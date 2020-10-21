@@ -50,6 +50,8 @@ end
 
 python_pip 'docker'
 
-python_pip 'docker-compose'
+python_pip 'docker-compose' do
+  action :upgrade
+end
 
 include_recipe 'docker-compose::cron'
