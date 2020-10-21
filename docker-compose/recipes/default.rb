@@ -39,6 +39,8 @@ end
 #python_pip 'setuptools' do
 #  action :upgrade
 #end
+#
+python_pip 'zipp'
 
 python_pip 'pyrsistent' do
   version '0.16.0'
