@@ -30,6 +30,10 @@ package 'python-pip'
 python_pip 'pip' do
   action :upgrade
 end
+python_pip 'pip-upgrade' do
+  package_name 'pip'
+  action :upgrade
+end
 
 python_pip 'docker'
 
