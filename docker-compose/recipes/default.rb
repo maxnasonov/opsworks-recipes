@@ -14,6 +14,7 @@ package 'Install Docker' do
     package_name 'docker'
   when 'ubuntu', 'debian'
     package_name 'docker-ce'
+    version "18.06.1~ce~3-0~ubuntu"
     #version '1.6.2~dfsg1-1ubuntu4~14.04.1'
   end
 end
@@ -26,12 +27,12 @@ end
 
 package 'python-pip'
 
-python_pip 'docker' do
-  version '2.6.1'
+python_pip 'pip' do
+  action :upgrade
 end
 
-python_pip 'docker-compose' do
-  version '1.17.1'
-end
+python_pip 'docker'
+
+python_pip 'docker-compose'
 
 include_recipe 'docker-compose::cron'
