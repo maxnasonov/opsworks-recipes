@@ -33,21 +33,23 @@ else
   pip_binary = "/usr/local/bin/pip"
 end
 
-cookbook_file "#{Chef::Config[:file_cache_path]}/get-pip.py" do
-  source 'get-pip.py'
-  mode "0644"
-  not_if { ::File.exists?(pip_binary) }
-end
-
-execute "install-pip" do
-  cwd Chef::Config[:file_cache_path]
-  command <<-EOF
-  #{node['python']['binary']} get-pip.py
-  EOF
-  not_if { ::File.exists?(pip_binary) }
-end
-
-python_pip 'setuptools' do
-  action :upgrade
-  version node['python']['setuptools_version']
-end
+package 'python-setuptools'
+package 'python-pip'
+#cookbook_file "#{Chef::Config[:file_cache_path]}/get-pip.py" do
+#  source 'get-pip.py'
+#  mode "0644"
+#  not_if { ::File.exists?(pip_binary) }
+#end
+#
+#execute "install-pip" do
+#  cwd Chef::Config[:file_cache_path]
+#  command <<-EOF
+#  #{node['python']['binary']} get-pip.py
+#  EOF
+#  not_if { ::File.exists?(pip_binary) }
+#end
+#
+#python_pip 'setuptools' do
+#  action :upgrade
+#  version node['python']['setuptools_version']
+#end
