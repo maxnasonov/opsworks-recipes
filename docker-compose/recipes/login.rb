@@ -6,6 +6,6 @@ python_pip 'awscli' do
 end
 
 execute "docker login" do
-  command "$(/usr/local/bin/aws ecr get-login --region us-east-1)"
-  sensitive true
+  command "$(/usr/local/bin/aws ecr get-login --region us-east-1 --no-include-email)"
+  #sensitive true
 end
